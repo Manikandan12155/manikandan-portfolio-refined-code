@@ -65,33 +65,35 @@ const Projects = () => {
     : projects.filter(project => project.category === filter);
 
   return (
-    <section id="projects" className="py-20 bg-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-        }}></div>
-      </div>
+    <section id="projects" className="py-24 projects-bg particles relative overflow-hidden">
+      {/* Enhanced Decorative Elements */}
+      <div className="absolute top-20 left-20 w-20 h-20 gradient-primary rounded-full opacity-15 hero-float"></div>
+      <div className="absolute bottom-20 right-20 w-16 h-16 gradient-secondary rounded-full opacity-20 hero-float" style={{animationDelay: '1s'}}></div>
+      <div className="absolute top-1/3 right-1/3 w-12 h-12 border-2 border-primary/20 rounded-lg transform rotate-45 skills-rotate"></div>
+      <div className="absolute bottom-1/3 left-1/3 w-8 h-8 gradient-accent rounded-full skills-bounce"></div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4 text-gradient">Featured Projects</h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+        <div className="text-center mb-20 projects-zoom">
+          <div className="inline-block relative">
+            <h2 className="text-5xl font-bold text-slate-900 mb-6 text-3d">Featured Projects</h2>
+            <div className="absolute -inset-2 gradient-primary opacity-20 blur-xl rounded-lg"></div>
+          </div>
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto text-reveal">
             A showcase of my recent work and technical expertise
           </p>
         </div>
 
-        {/* Filter Buttons with Enhanced Animation */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12 animate-fade-in-up">
+        {/* Enhanced Filter Buttons */}
+        <div className="flex flex-wrap justify-center gap-4 mb-16 projects-flip">
           {categories.map((category) => (
             <Button
               key={category.id}
               variant={filter === category.id ? "default" : "outline"}
               onClick={() => setFilter(category.id)}
-              className={`transition-all duration-300 hover-lift ${
+              className={`magnetic-button px-6 py-3 text-lg font-semibold rounded-full transition-all duration-500 ${
                 filter === category.id 
-                  ? 'bg-gradient-to-r from-primary to-secondary animate-glow' 
-                  : 'hover-glow'
+                  ? 'gradient-primary text-white shadow-primary glow-border' 
+                  : 'glow-border hover:shadow-secondary'
               }`}
             >
               {category.label}
@@ -99,13 +101,13 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Projects Grid with Staggered Animation */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Enhanced Projects Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {filteredProjects.map((project, index) => (
             <Card 
               key={index} 
-              className={`card-hover group relative overflow-hidden ${
-                project.featured ? 'ring-2 ring-primary/20' : ''
+              className={`interactive-card glow-border morph-shape group relative overflow-hidden ${
+                project.featured ? 'ring-2 ring-primary/30 shadow-primary' : ''
               }`}
               onMouseEnter={() => setHoveredProject(index)}
               onMouseLeave={() => setHoveredProject(null)}
@@ -113,58 +115,62 @@ const Projects = () => {
                 animationDelay: `${index * 0.1}s`
               }}
             >
-              {/* Featured Badge */}
+              {/* Enhanced Featured Badge */}
               {project.featured && (
                 <div className="absolute top-4 right-4 z-20">
-                  <Badge variant="secondary" className="text-xs bg-gradient-to-r from-primary to-secondary text-white animate-pulse">
-                    Featured
+                  <Badge variant="secondary" className="gradient-primary text-white px-3 py-1 font-bold rounded-full hero-pulse">
+                    ⭐ Featured
                   </Badge>
                 </div>
               )}
 
-              {/* Project Image Placeholder with Gradient */}
-              <div className="h-48 bg-gradient-to-br from-primary/10 to-secondary/20 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              {/* Enhanced Project Image with Gradient Overlay */}
+              <div className="h-56 gradient-primary relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-6xl font-bold text-primary/20 group-hover:text-primary/40 transition-colors duration-300 animate-float">
+                  <div className="text-8xl font-bold text-white/30 group-hover:text-white/50 transition-colors duration-500 text-3d skills-wave">
                     {project.title.charAt(0)}
                   </div>
                 </div>
                 
-                {/* Stats Overlay */}
-                <div className={`absolute top-4 left-4 flex space-x-3 transition-all duration-300 ${
-                  hoveredProject === index ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
+                {/* Floating Particles */}
+                <div className="absolute top-4 left-4 w-2 h-2 bg-white/40 rounded-full hero-float"></div>
+                <div className="absolute bottom-4 right-4 w-1 h-1 bg-white/60 rounded-full hero-float" style={{animationDelay: '1s'}}></div>
+                
+                {/* Enhanced Stats Overlay */}
+                <div className={`absolute top-4 left-4 flex space-x-3 transition-all duration-500 ${
+                  hoveredProject === index ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
                 }`}>
-                  <div className="flex items-center space-x-1 bg-black/70 text-white px-2 py-1 rounded-full text-xs">
-                    <Star className="h-3 w-3" />
+                  <div className="flex items-center space-x-1 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    <Star className="h-4 w-4 skills-bounce" />
                     <span>{project.stats.stars}</span>
                   </div>
-                  <div className="flex items-center space-x-1 bg-black/70 text-white px-2 py-1 rounded-full text-xs">
-                    <Eye className="h-3 w-3" />
+                  <div className="flex items-center space-x-1 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    <Eye className="h-4 w-4 contact-wiggle" />
                     <span>{project.stats.views}</span>
                   </div>
                 </div>
               </div>
 
-              <CardHeader>
-                <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors duration-300">
+              <CardHeader className="relative z-10">
+                <CardTitle className="text-xl mb-3 group-hover:text-primary transition-colors duration-300 text-3d">
                   {project.title}
                 </CardTitle>
-                <CardDescription className="text-slate-600 line-clamp-3">
+                <CardDescription className="text-slate-600 line-clamp-3 text-base leading-relaxed">
                   {project.description}
                 </CardDescription>
               </CardHeader>
               
-              <CardContent>
-                <div className="space-y-4">
+              <CardContent className="relative z-10">
+                <div className="space-y-6">
                   <div>
-                    <h4 className="font-semibold text-sm text-slate-700 mb-2">Tech Stack:</h4>
+                    <h4 className="font-semibold text-slate-700 mb-3 text-lg">Tech Stack:</h4>
                     <div className="flex flex-wrap gap-2">
                       {project.techStack.map((tech, techIndex) => (
                         <Badge 
                           key={techIndex} 
                           variant="outline" 
-                          className="text-xs hover-scale hover-glow transition-all duration-300 animate-fade-in-up"
+                          className="magnetic-button glow-border px-3 py-1 font-medium projects-slide-up hover:scale-105 transition-all duration-300"
                           style={{animationDelay: `${techIndex * 0.1}s`}}
                         >
                           {tech}
@@ -178,7 +184,7 @@ const Projects = () => {
                       variant="outline" 
                       size="sm" 
                       asChild
-                      className="hover-lift hover-glow flex-1"
+                      className="magnetic-button glow-border flex-1 font-semibold"
                     >
                       <a 
                         href={project.githubUrl} 
@@ -186,7 +192,7 @@ const Projects = () => {
                         rel="noopener noreferrer"
                         className="flex items-center justify-center space-x-2"
                       >
-                        <Github className="h-4 w-4 animate-wave" />
+                        <Github className="h-4 w-4 skills-wave" />
                         <span>Code</span>
                       </a>
                     </Button>
@@ -195,7 +201,7 @@ const Projects = () => {
                       <Button 
                         size="sm" 
                         asChild
-                        className="hover-lift bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary flex-1"
+                        className="magnetic-button gradient-primary text-white flex-1 font-semibold shadow-primary"
                       >
                         <a 
                           href={project.liveUrl} 
@@ -203,7 +209,7 @@ const Projects = () => {
                           rel="noopener noreferrer"
                           className="flex items-center justify-center space-x-2"
                         >
-                          <ExternalLink className="h-4 w-4 animate-bounce-in" />
+                          <ExternalLink className="h-4 w-4 skills-bounce" />
                           <span>Live Demo</span>
                         </a>
                       </Button>
@@ -212,23 +218,27 @@ const Projects = () => {
                 </div>
               </CardContent>
 
-              {/* Hover Effect Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              {/* Enhanced Hover Effect Overlay */}
+              <div className="absolute inset-0 gradient-primary opacity-0 group-hover:opacity-5 transition-opacity duration-700 pointer-events-none"></div>
+              
+              {/* Morphing Corner Elements */}
+              <div className="absolute -top-3 -right-3 w-12 h-12 gradient-secondary rounded-full opacity-0 group-hover:opacity-20 transition-all duration-500 skills-rotate"></div>
+              <div className="absolute -bottom-3 -left-3 w-8 h-8 gradient-accent rounded-full opacity-0 group-hover:opacity-30 transition-all duration-700 skills-bounce"></div>
             </Card>
           ))}
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-16 animate-fade-in-up">
-          <p className="text-slate-600 mb-6">Want to see more of my work?</p>
+        {/* Enhanced Call to Action */}
+        <div className="text-center mt-20 about-expand">
+          <p className="text-slate-600 mb-8 text-xl">Want to see more of my work?</p>
           <Button 
             size="lg" 
             variant="outline"
-            className="hover-lift btn-magnetic border-2 border-primary/20 hover:border-primary/50"
+            className="magnetic-button glow-border px-8 py-4 text-lg font-semibold morph-shape group"
             asChild
           >
             <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-              <Github className="h-5 w-5 mr-2" />
+              <Github className="h-6 w-6 mr-3 group-hover:skills-rotate" />
               View All Projects on GitHub
             </a>
           </Button>
