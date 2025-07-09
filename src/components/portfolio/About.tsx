@@ -8,7 +8,7 @@ const About = () => {
       icon: <TrendingUp className="h-6 w-6 text-blue-400" />,
       title: "Team Leadership",
       description: "Leading cross-functional development teams to deliver high-quality software solutions",
-      color: "from-blue-500 to-cyan-500"
+      color: "from-blue-500 to-cyan-50"
     },
     {
       icon: <Award className="h-6 w-6 text-emerald-400" />,
