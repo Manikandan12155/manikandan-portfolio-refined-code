@@ -1,6 +1,11 @@
 
 import { useState } from 'react';
-import './portfolio.css';
+import { Mail, Phone, MapPin, Send, Github, Linkedin } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +15,7 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -25,7 +31,10 @@ const Contact = () => {
 
     // Simulate form submission
     setTimeout(() => {
-      alert("Thank you for your message! I'll get back to you soon!");
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for your message. I'll get back to you soon!",
+      });
       setFormData({ name: '', email: '', subject: '', message: '' });
       setIsSubmitting(false);
     }, 1000);
@@ -33,19 +42,19 @@ const Contact = () => {
 
   const contactInfo = [
     {
-      icon: "✉️",
+      icon: <Mail className="h-6 w-6" />,
       title: "Email",
       value: "manianuram2312@gmail.com",
       link: "mailto:manianuram2312@gmail.com"
     },
     {
-      icon: "📞",
+      icon: <Phone className="h-6 w-6" />,
       title: "Phone",
       value: "+91 79045 44330",
       link: "tel:+917904544330"
     },
     {
-      icon: "📍",
+      icon: <MapPin className="h-6 w-6" />,
       title: "Location",
       value: "Coimbatore, Tamil Nadu, India",
       link: "https://maps.google.com/?q=Coimbatore,Tamil+Nadu,India"
@@ -53,50 +62,67 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="contact">
-      <div className="container">
-        <h2 className="section-title">Get In Touch</h2>
-        <p className="section-subtitle">
-          Let's discuss your next project or explore collaboration opportunities
-        </p>
+    <section id="contact" className="py-20 bg-slate-50">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-slate-900 mb-4">Get In Touch</h2>
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            Let's discuss your next project or explore collaboration opportunities
+          </p>
+        </div>
 
-        <div className="contact-grid">
-          <div className="contact-info">
-            <h3>Contact Information</h3>
-            
-            {contactInfo.map((info, index) => (
-              <div key={index} className="contact-item">
-                <a href={info.link} className="contact-item-link" target={info.link.startsWith('http') ? '_blank' : undefined}>
-                  <div className="contact-item-icon">
-                    {info.icon}
-                  </div>
-                  <div className="contact-item-info">
-                    <h4>{info.title}</h4>
-                    <p>{info.value}</p>
-                  </div>
-                </a>
-              </div>
-            ))}
-
-            <div style={{ marginTop: '32px' }}>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1e293b', marginBottom: '16px' }}>
-                Connect With Me
-              </h3>
-              <div style={{ display: 'flex', gap: '16px' }}>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-btn" style={{ position: 'static', width: '48px', height: '48px' }}>
-                  🐙
-                </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-btn" style={{ position: 'static', width: '48px', height: '48px' }}>
-                  💼
-                </a>
+        <div className="grid lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+          {/* Contact Information */}
+          <div className="lg:col-span-1 space-y-6">
+            <div>
+              <h3 className="text-2xl font-semibold text-slate-900 mb-6">Contact Information</h3>
+              <div className="space-y-4">
+                {contactInfo.map((info, index) => (
+                  <Card key={index} className="hover:shadow-md transition-shadow">
+                    <CardContent className="p-4">
+                      <a 
+                        href={info.link}
+                        className="flex items-center space-x-4 group"
+                        target={info.link.startsWith('http') ? '_blank' : undefined}
+                        rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      >
+                        <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                          <div className="text-primary">
+                            {info.icon}
+                          </div>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-slate-900">{info.title}</h4>
+                          <p className="text-slate-600 text-sm">{info.value}</p>
+                        </div>
+                      </a>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </div>
 
-            <div style={{ marginTop: '32px' }}>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: '#1e293b', marginBottom: '16px' }}>
-                Location
-              </h3>
-              <div style={{ aspectRatio: '16/9', borderRadius: '12px', overflow: 'hidden' }}>
+            {/* Social Links */}
+            <div>
+              <h3 className="text-xl font-semibold text-slate-900 mb-4">Connect With Me</h3>
+              <div className="flex space-x-4">
+                <Button variant="outline" size="icon" asChild>
+                  <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                    <Github className="h-5 w-5" />
+                  </a>
+                </Button>
+                <Button variant="outline" size="icon" asChild>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                </Button>
+              </div>
+            </div>
+
+            {/* Location Map Embed */}
+            <div>
+              <h3 className="text-xl font-semibold text-slate-900 mb-4">Location</h3>
+              <div className="aspect-video rounded-lg overflow-hidden">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125438.27612253775!2d76.93093997248726!3d11.016845390369375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859af2f971cb5%3A0x2fc1c81e183ed282!2sCoimbatore%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1710234567890!5m2!1sen!2sin"
                   width="100%"
@@ -111,74 +137,96 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="contact-form-card">
-            <h3>Send Me a Message</h3>
-            <p>
-              I'd love to hear about your project. Fill out the form below and I'll get back to you as soon as possible.
-            </p>
-            
-            <form onSubmit={handleSubmit} className="contact-form">
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="name">Full Name *</label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Enter your full name"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="email">Email Address *</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="Enter your email address"
-                  />
-                </div>
-              </div>
+          {/* Contact Form */}
+          <div className="lg:col-span-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-2xl">Send Me a Message</CardTitle>
+                <CardDescription>
+                  I'd love to hear about your project. Fill out the form below and I'll get back to you as soon as possible.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
+                        Full Name *
+                      </label>
+                      <Input
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder="Enter your full name"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
+                        Email Address *
+                      </label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="Enter your email address"
+                      />
+                    </div>
+                  </div>
 
-              <div className="form-group">
-                <label htmlFor="subject">Subject *</label>
-                <input
-                  id="subject"
-                  name="subject"
-                  type="text"
-                  required
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  placeholder="What's this about?"
-                />
-              </div>
+                  <div>
+                    <label htmlFor="subject" className="block text-sm font-medium text-slate-700 mb-2">
+                      Subject *
+                    </label>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      type="text"
+                      required
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      placeholder="What's this about?"
+                    />
+                  </div>
 
-              <div className="form-group">
-                <label htmlFor="message">Message *</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  placeholder="Tell me about your project or how I can help you..."
-                  rows={6}
-                />
-              </div>
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
+                      Message *
+                    </label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      required
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder="Tell me about your project or how I can help you..."
+                      rows={6}
+                    />
+                  </div>
 
-              <button 
-                type="submit" 
-                className="submit-btn"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Sending..." : "📤 Send Message"}
-              </button>
-            </form>
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    size="lg"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      "Sending..."
+                    ) : (
+                      <>
+                        <Send className="h-5 w-5 mr-2" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
