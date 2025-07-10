@@ -1,7 +1,8 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, QrCode } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import QRCodeOverlay from './QRCodeOverlay';
 
 interface NavigationProps {
   activeSection: string;
@@ -10,6 +11,7 @@ interface NavigationProps {
 const Navigation = ({ activeSection }: NavigationProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isQROpen, setIsQROpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,61 +41,85 @@ const Navigation = ({ activeSection }: NavigationProps) => {
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
-    }`}>
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex justify-between items-center">
-          <div className="text-2xl font-bold text-primary">
-            Manikandan A
-          </div>
+    <>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
+      }`}>
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            <div className="text-2xl font-bold text-primary">
+              Manikandan A
+            </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  activeSection === item.id ? 'text-primary' : 'text-muted-foreground'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-border">
-            <div className="flex flex-col space-y-2 pt-4">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex space-x-8 items-center">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`text-left py-2 px-4 rounded-md transition-colors hover:bg-muted ${
-                    activeSection === item.id ? 'text-primary bg-muted' : 'text-muted-foreground'
+                  className={`text-sm font-medium transition-colors hover:text-primary ${
+                    activeSection === item.id ? 'text-primary' : 'text-muted-foreground'
                   }`}
                 >
                   {item.label}
                 </button>
               ))}
+              
+              {/* QR Code Button */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsQROpen(true)}
+                className="ml-4"
+              >
+                <QrCode className="h-4 w-4 mr-2" />
+                Mobile View
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex items-center space-x-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsQROpen(true)}
+              >
+                <QrCode className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </Button>
             </div>
           </div>
-        )}
-      </div>
-    </nav>
+
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <div className="md:hidden mt-4 pb-4 border-t border-border">
+              <div className="flex flex-col space-y-2 pt-4">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`text-left py-2 px-4 rounded-md transition-colors hover:bg-muted ${
+                      activeSection === item.id ? 'text-primary bg-muted' : 'text-muted-foreground'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+
+      {/* QR Code Overlay */}
+      <QRCodeOverlay isOpen={isQROpen} onClose={() => setIsQROpen(false)} />
+    </>
   );
 };
 

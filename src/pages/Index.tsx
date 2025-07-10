@@ -12,6 +12,8 @@ import Experience from '@/components/portfolio/Experience';
 import Certifications from '@/components/portfolio/Certifications';
 import Contact from '@/components/portfolio/Contact';
 import Navigation from '@/components/portfolio/Navigation';
+import Chatbot from '@/components/portfolio/Chatbot';
+import GoToTopButton from '@/components/portfolio/GoToTopButton';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -86,6 +88,10 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Fixed positioned components */}
+      <Chatbot />
+      <GoToTopButton />
     </div>
   );
 };
