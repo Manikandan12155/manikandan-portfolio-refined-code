@@ -86,8 +86,8 @@ const Navigation = ({ activeSection }: NavigationProps) => {
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className={`text-left py-2 px-4 rounded-md transition-colors hover:bg-muted ${
-                      activeSection === item.id ? 'text-primary bg-muted' : 'text-muted-foreground'
+                    className={`text-left py-3 px-4 rounded-md transition-colors bg-slate-50 hover:bg-slate-100 ${
+                      activeSection === item.id ? 'text-primary bg-slate-100 font-medium border-l-4 border-primary' : 'text-muted-foreground'
                     }`}
                   >
                     {item.label}
