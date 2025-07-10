@@ -64,28 +64,10 @@ const Navigation = ({ activeSection }: NavigationProps) => {
                   {item.label}
                 </button>
               ))}
-              
-              {/* QR Code Button */}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setIsQROpen(true)}
-                className="ml-4"
-              >
-                <QrCode className="h-4 w-4 mr-2" />
-                Mobile View
-              </Button>
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setIsQROpen(true)}
-              >
-                <QrCode className="h-4 w-4" />
-              </Button>
+            <div className="md:hidden flex items-center">
               <Button
                 variant="ghost"
                 size="icon"
@@ -116,6 +98,19 @@ const Navigation = ({ activeSection }: NavigationProps) => {
           )}
         </div>
       </nav>
+
+      {/* QR Code Button - Desktop Only */}
+      <div className="hidden lg:block fixed top-4 right-4 z-50">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setIsQROpen(true)}
+          className="bg-white/95 backdrop-blur-sm shadow-lg"
+        >
+          <QrCode className="h-4 w-4 mr-2" />
+          Mobile View
+        </Button>
+      </div>
 
       {/* QR Code Overlay */}
       <QRCodeOverlay isOpen={isQROpen} onClose={() => setIsQROpen(false)} />
