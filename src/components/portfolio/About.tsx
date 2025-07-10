@@ -3,6 +3,7 @@ import { Award, Target, TrendingUp, Heart, Code2, Users } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const About = () => {
+  <></>
   const achievements = [
     {
       icon: <TrendingUp className="h-6 w-6 text-blue-400" />,
