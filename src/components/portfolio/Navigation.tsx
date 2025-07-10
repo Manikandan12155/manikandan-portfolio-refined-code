@@ -100,7 +100,7 @@ const Navigation = ({ activeSection }: NavigationProps) => {
       </nav>
 
       {/* QR Code Button - Desktop Only */}
-      <div className="hidden lg:block fixed top-4 right-4 z-50">
+      {/* <div className="hidden lg:block fixed top-4 right-4 z-50">
         <Button
           variant="outline"
           size="sm"
@@ -112,8 +112,8 @@ const Navigation = ({ activeSection }: NavigationProps) => {
         </Button>
       </div>
 
-      {/* QR Code Overlay */}
-      <QRCodeOverlay isOpen={isQROpen} onClose={() => setIsQROpen(false)} />
+     
+      {/* <QRCodeOverlay isOpen={isQROpen} onClose={() => setIsQROpen(false)} /> */}
     </>
   );
 };
