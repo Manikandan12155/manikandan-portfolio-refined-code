@@ -1,5 +1,5 @@
 # Welcome to your Lovable project
-
+:rocket:
 ## Project info
 
 **URL**: https://lovable.dev/projects/b507c741-07fb-4091-b4e0-e84ce0eb62e6
